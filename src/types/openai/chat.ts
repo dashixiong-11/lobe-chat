@@ -23,8 +23,10 @@ export interface OpenAIChatMessage {
    */
   content: string | UserMessageContentPart[];
 
+  conversation_id?: string;
   function_call?: OpenAIFunctionCall;
   name?: string;
+  parent_message_id?: string;
   /**
    * 角色
    * @description 消息发送者的角色

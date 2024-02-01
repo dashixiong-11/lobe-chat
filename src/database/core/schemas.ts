@@ -31,3 +31,9 @@ export const dbSchemaV3 = {
   plugins:
     '&identifier, type, manifest.type, manifest.meta.title, manifest.meta.description, manifest.meta.author, createdAt, updatedAt',
 };
+
+export const dbSchemaV4 = {
+  ...dbSchemaV3,
+  messages:
+    '&id, role, content, fromModel, favorite, plugin.identifier, plugin.apiName, translate.content, createdAt, updatedAt, sessionId, topicId, quotaId, parentId, [sessionId+topicId], conversation_id, parent_message_id',
+};

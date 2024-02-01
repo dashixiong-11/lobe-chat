@@ -64,7 +64,8 @@ export const chatTopic: StateCreator<
     const messages = chatSelectors.currentChats(get());
     if (messages.length === 0) return;
 
-    const { activeId, summaryTopicTitle, refreshTopic } = get();
+    // const { activeId, summaryTopicTitle, refreshTopic } = get();
+    const { activeId, refreshTopic } = get();
 
     // 1. create topic and bind these messages
     const topicId = await topicService.createTopic({
@@ -76,7 +77,7 @@ export const chatTopic: StateCreator<
 
     // 2. auto summary topic Title
     // we don't need to wait for summary, just let it run async
-    summaryTopicTitle(topicId, messages);
+    // summaryTopicTitle(topicId, messages);
 
     return topicId;
   },

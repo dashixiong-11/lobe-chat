@@ -99,7 +99,30 @@ class _MessageModel extends BaseModel {
   }
 
   async update(id: string, data: DeepPartial<DB_Message>) {
-    return super._update(id, data);
+    const { content: message, ...rest } = data;
+    const ids = {
+      conversation_id: undefined,
+      parent_message_id: undefined,
+    };
+
+    // let pattern = /\{"conversation_id":"[\da-z-]+","parent_message_id":"[\da-z-]+"\}/;
+    let pattern = /{"conversation_id":"[\da-z-]+","parent_message_id":"[\da-z-]+"}/;
+    // let pattern = /\{conversation_id: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", parent_message_id: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"\}/;
+    let modifiedText = '';
+    if (message) {
+      // 使用replace方法将匹配到的部分替换为空
+      modifiedText = message.replace(pattern, '');
+      const matchedPart = message.match(pattern)?.[0];
+      if (matchedPart) {
+        const parseJSON = JSON.parse(matchedPart || '');
+        Object.assign(ids, parseJSON);
+      }
+    }
+    return super._update(id, {
+      content: modifiedText,
+      ...ids,
+      ...rest,
+    });
   }
 
   /**

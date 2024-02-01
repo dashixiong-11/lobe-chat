@@ -29,7 +29,8 @@ const Left = memo(() => {
       agentSelectors.currentAgentDescription(s),
       agentSelectors.currentAgentAvatar(s),
       agentSelectors.currentAgentBackgroundColor(s),
-      agentSelectors.currentAgentModel(s),
+      'gpt-4',
+      // agentSelectors.currentAgentModel(s),
       agentSelectors.currentAgentPlugins(s),
     ],
   );

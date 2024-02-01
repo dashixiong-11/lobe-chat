@@ -1,8 +1,9 @@
-import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { StreamingTextResponse } from 'ai';
 import OpenAI from 'openai';
 
 import { ChatErrorType } from '@/types/fetch';
 import { OpenAIChatStreamPayload } from '@/types/openai/chat';
+import { OpenAIStream } from '@/utils/openai-stream';
 
 import { createErrorResponse } from '../errorResponse';
 import { desensitizeUrl } from './desensitizeUrl';
@@ -14,6 +15,7 @@ interface CreateChatCompletionOptions {
 
 export const createChatCompletion = async ({ payload, openai }: CreateChatCompletionOptions) => {
   // ============  1. preprocess messages   ============ //
+
   const { messages, ...params } = payload;
 
   // ============  2. send api   ============ //
@@ -27,7 +29,7 @@ export const createChatCompletion = async ({ payload, openai }: CreateChatComple
       } as unknown as OpenAI.ChatCompletionCreateParamsStreaming,
       { headers: { Accept: '*/*' } },
     );
-    const stream = OpenAIStream(response);
+    const stream = OpenAIStream(response as any);
     return new StreamingTextResponse(stream);
   } catch (error) {
     let desensitizedEndpoint = openai.baseURL;

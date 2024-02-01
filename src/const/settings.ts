@@ -34,7 +34,7 @@ export const DEFAULT_AGENT_CONFIG: LobeAgentConfig = {
   displayMode: 'chat',
   enableAutoCreateTopic: true,
   historyCount: 1,
-  model: LanguageModel.GPT3_5,
+  model: LanguageModel.GPT4,
   params: {
     frequency_penalty: 0,
     presence_penalty: 0,

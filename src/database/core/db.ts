@@ -7,7 +7,7 @@ import { DB_Plugin } from '@/database/schemas/plugin';
 import { DB_Session } from '@/database/schemas/session';
 import { DB_Topic } from '@/database/schemas/topic';
 
-import { dbSchemaV1, dbSchemaV2, dbSchemaV3 } from './schemas';
+import { dbSchemaV1, dbSchemaV2, dbSchemaV3, dbSchemaV4 } from './schemas';
 
 interface LobeDBSchemaMap {
   files: DB_File;
@@ -30,6 +30,7 @@ export class LocalDB extends Dexie {
     this.version(1).stores(dbSchemaV1);
     this.version(2).stores(dbSchemaV2);
     this.version(3).stores(dbSchemaV3);
+    this.version(4).stores(dbSchemaV4);
 
     this.files = this.table('files');
     this.sessions = this.table('sessions');
